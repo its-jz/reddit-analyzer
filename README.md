@@ -3,6 +3,9 @@ Using openai and reddit api to analyze a subreddit
 
 ## Todos
 1. Make sure the number of tags is not too high (it will be hard for chatbot to handle)
+2. Log the arguments in the log file
+3. Allow users to change submission filters
+4. Add submission date
 
 This tool analyzes a subreddit on a specific industry. It will read the top 1000 posts and comments and identify
 1. potential problems that people are facing in the industry
