@@ -34,5 +34,5 @@ This tool analyzes a subreddit on a specific industry. It will read the top 1000
     - `--num_posts` is the number of posts to analyze. Default is 10
     - `--labels` are the labels you want to use to identify the industry. Default is `['industry']`
     The result will be saved in `runs/` folder
-4. run 'python read.py' to read the result in a streamlit app
+4. run `streamlit run read.py` to read the result in a streamlit app
 
