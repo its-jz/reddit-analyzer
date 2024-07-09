@@ -1,4 +1,5 @@
-#reddit-analyzer
+# reddit-analyzer
+Using openai and reddit api to analyze a subreddit
 
 ## Todos
 1. Make sure the number of tags is not too high (it will be hard for chatbot to handle)
