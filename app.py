@@ -61,9 +61,19 @@ reddit = praw.Reddit(
 
 def problem_search(subreddit_name, industry, labels=[], num_posts=10):
     subreddit = reddit.subreddit(subreddit_name)
-    for submission in subreddit.top(limit=num_posts):
+    for submission in subreddit.top(time_filter='week', limit=num_posts):
         text = f"# {submission.title}\n\n{submission.selftext}"
         identified_problems = identify_problems_from_post(text, industry, subreddit)
+        if len(identified_problems) == 0:
+            log_item = {
+                "fullname": submission.fullname,
+                "title": submission.title,
+                "text": submission.selftext,
+                "source": submission.url,
+                "problem": "NOT_FOUND",
+                "labels": []
+            }
+            logger.custom(json.dumps(log_item))
         for problem in identified_problems:
             try:
                 problem_labels, new_labels = label_problem(problem, labels, industry)
