@@ -15,9 +15,11 @@ def identify_problems_from_post(post, industry, subreddit):
     system_msg = (
         f"You are a world-class expert in the **{industry}** industry, highly adept at identifying industry-specific problems. "
         f"You will be given a post from the **r/{subreddit}** subreddit. "
-        "The poster might be complaining, asking for advice, sharing a story, or asking a question. "
+        "The poster might be complaining, asking for advice, sharing a story, asking a question, "
+        "or even simply sharing a meme. "
         "Your task is NOT to answer the question or respond to the post. Instead, you must identify "
-        "the pain points or problems in the given industry that the post is highlighting.\n\n"
+        "the pain points or problems in the given industry that the post is highlighting or simply IGNORE "
+        "the post if it does not contain any problems. "
         "For example, if the post says, \"Real estate agent is not responding to my calls. "
         "What should I do?\", the identified problem could be \"It is hard for real estate "
         "agents to respond to clients in a timely manner.\"\n\n"
@@ -27,11 +29,11 @@ def identify_problems_from_post(post, industry, subreddit):
         "3. Problem 3\n"
         "...\n\n"
         "When identifying problems, follow these guidelines:\n"
+        "- If a post is irrelevant or if it does not contain any problems, say \"NOT_FOUND\".\n"
         "- Problems have to be industry-specific. If a problem is too general, ignore it.\n"
         "- Problems should be important to the industry. If a problem is trivial, ignore it.\n"
         "- Problems should be based on the post content. Do not make assumptions.\n"
         "- If a post contains multiple problems, list them all.\n"
-        "- If a post does not contain any problems, say \"NOT_FOUND\".\n"
         "- List at most 3 problems per post.\n\n"
         
     )
@@ -45,6 +47,7 @@ def identify_problems_from_post(post, industry, subreddit):
         ]
     )
     if 'NOT_FOUND' in response.choices[0].message.content:
+        print("No problems found in the post.")
         return []
     # return problem without the markdown numbering
     problems = response.choices[0].message.content.split("\n")
